@@ -11,19 +11,17 @@ group by (address);
 
 
 select c.name as courseName, avg(point) as 'Diem trung binh'
-from students S
-         join point p on S.id = p.student_id
+from point p
          join course c on c.id = p.course_id
 group by (c.name);
 
 
+
 select c.name as 'Tên nhóm cao nhất', avg(point)
-from students S
-         join point p on S.id = p.student_id
+from point p
          join course c on c.id = p.course_id
 group by c.name
-having avg(point) >= ALL (select avg(point)
+having avg(point) >= ALL (select avg(p.point)
                           from point p
                           group by p.course_id);
-
 
